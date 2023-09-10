@@ -75,4 +75,4 @@ Please use this library responsibly and ensure that you understand security best
 If you'd like to contribute, please fork the repository and use a feature branch. All contributions are welcome and greatly appreciated.
 
 ## License
-This project is licensed under the GNU GPLv3 License - see the [license.md](/license) file for details.
+This project is licensed under the GNU GPLv3 License - see the [license](/LICENSE) file for details.
