@@ -13,27 +13,6 @@ const crypto = require('crypto');
  * @throws Will throw an error if the JWT is not well formatted or if the 
  * verification failed.
  */
-exports.decode = async (jwt, secret) => {
-  try {
-    const [base64Header, base64Payload, signature] = jwt.split('.');
-    const newSignature = crypto.createHmac('sha256', secret)
-      .update(base64Header + '.' + base64Payload)
-      .digest('base64')
-      .replace('+', '-')
-      .replace('/', '_')
-      .replace(/=+$/, '');
-
-    if (signature !== newSignature) {
-      throw new Error('Signature verification failed');
-    }
-
-    const decodedPayload = Buffer.from(base64Payload.replace('-', '+').replace('_', '/'), 'base64').toString('utf8');
-
-    return Promise.resolve(JSON.parse(decodedPayload));
-  } catch (error) {
-    throw new Error(`Error decoding token: ${error}`);
-  }
-};
 
 /**
  * Encode the payload into a JWT format.
@@ -56,5 +35,27 @@ exports.encode = async (payload, secret) => {
     return Promise.resolve(`${base64Header}.${base64Payload}.${signature}`);
   } catch (error) {
     throw new Error(`Error encoding token: ${error}`);
+  }
+};
+
+exports.decode = async (jwt, secret) => {
+  try {
+    const [base64Header, base64Payload, signature] = jwt.split('.');
+    const newSignature = crypto.createHmac('sha256', secret)
+      .update(base64Header + '.' + base64Payload)
+      .digest('base64')
+      .replace('+', '-')
+      .replace('/', '_')
+      .replace(/=+$/, '');
+
+    if (signature !== newSignature) {
+      throw new Error('Signature verification failed');
+    }
+
+    const decodedPayload = Buffer.from(base64Payload.replace('-', '+').replace('_', '/'), 'base64').toString('utf8');
+
+    return Promise.resolve(JSON.parse(decodedPayload));
+  } catch (error) {
+    throw new Error(`Error decoding token: ${error}`);
   }
 };
