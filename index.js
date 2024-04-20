@@ -6,15 +6,6 @@
 const crypto = require('crypto');
 
 /**
- * Decode the JWT into the payload.
- * @param {string} jwt - The JWT to be decoded.
- * @param {string} secret - The secret key for verifying the HMAC.
- * @return {Promise<Object>} A promise that resolves with the decoded payload.
- * @throws Will throw an error if the JWT is not well formatted or if the 
- * verification failed.
- */
-
-/**
  * Encode the payload into a JWT format.
  * @param {Object} payload - The payload that will be encoded.
  * @param {string} secret - The secret key for generating the HMAC.
@@ -37,6 +28,15 @@ exports.encode = async (payload, secret) => {
     throw new Error(`Error encoding token: ${error}`);
   }
 };
+
+/**
+ * Decode the JWT into the payload.
+ * @param {string} jwt - The JWT to be decoded.
+ * @param {string} secret - The secret key for verifying the HMAC.
+ * @return {Promise<Object>} A promise that resolves with the decoded payload.
+ * @throws Will throw an error if the JWT is not well formatted or if the 
+ * verification failed.
+ */
 
 exports.decode = async (jwt, secret) => {
   try {
