@@ -3,6 +3,7 @@
  * and decode data using JSON Web Tokens(JWT) and HMAC with SHA256 for signing.
  * @module shjwt
  */
+
 const crypto = require('crypto');
 
 /**
@@ -12,6 +13,7 @@ const crypto = require('crypto');
  * @return {Promise<string>} A Promise that resolves with the JWT token.
  * @throws Will throw an error if an issue occurs during encoding.
  */
+
 exports.encode = async (payload, secret) => {
   try {
     const base64Header = Buffer.from(JSON.stringify({typ: 'JWT', alg: 'HS256'})).toString('base64');
